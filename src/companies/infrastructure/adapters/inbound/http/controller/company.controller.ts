@@ -40,7 +40,6 @@ export class CompaniesController {
     return await this.companyUseCases.findAllCompanies(
       {
         type: queryParams.type,
-        status: queryParams.status,
         search: queryParams.search,
       },
       {
@@ -48,12 +47,6 @@ export class CompaniesController {
         limit: queryParams.limit || 10,
       },
     );
-  }
-
-  @Get(':id')
-  @ApiOperation({ summary: 'Get company by ID' })
-  async findOne(@Param('id') id: string) {
-    return await this.companyUseCases.findCompanyById(id);
   }
 
   @Post('register')

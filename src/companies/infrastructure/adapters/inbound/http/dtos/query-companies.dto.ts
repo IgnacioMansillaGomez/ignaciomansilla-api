@@ -8,11 +8,6 @@ export class QueryCompaniesDto {
   @IsEnum(['PYME', 'CORPORATE'])
   type?: string;
 
-  @ApiProperty({ required: false })
-  @IsOptional()
-  @IsEnum(['ACTIVE', 'INACTIVE', 'PENDING'])
-  status?: string;
-
   @ApiProperty({ required: false, default: 1 })
   @IsOptional()
   @Type(() => Number)

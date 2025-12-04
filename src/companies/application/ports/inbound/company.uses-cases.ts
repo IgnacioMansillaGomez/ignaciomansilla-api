@@ -9,7 +9,6 @@ export interface CreateCompanyCommand {
 
 export interface CompanyFilters {
   type?: string;
-  status?: string;
   industry?: string;
   search?: string;
   email?: string;

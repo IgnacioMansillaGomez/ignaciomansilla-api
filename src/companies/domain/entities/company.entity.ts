@@ -1,4 +1,4 @@
-import { CompanyStatus, CompanyType } from 'src/util/enum';
+import { CompanyType } from 'src/util/enum';
 
 export class Company {
   constructor(
@@ -6,7 +6,6 @@ export class Company {
     public readonly name: string,
     public readonly taxId: string,
     public readonly type: CompanyType,
-    public status: CompanyStatus,
     public readonly email: string | null,
     public readonly registrationDate: Date,
     public readonly createdAt: Date = new Date(),

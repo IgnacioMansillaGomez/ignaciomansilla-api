@@ -14,7 +14,7 @@ import {
   ICompanyUseCases,
   PaginationParams,
 } from '../ports/inbound/company.uses-cases';
-import { CompanyStatus, CompanyType } from 'src/util/enum';
+import { CompanyType } from 'src/util/enum';
 
 @Injectable()
 export class CompanyService implements ICompanyUseCases {
@@ -42,7 +42,6 @@ export class CompanyService implements ICompanyUseCases {
       command.name,
       taxId.getValue(),
       command.type as CompanyType,
-      CompanyStatus.ACTIVE,
       command.email || null,
       new Date(),
     );

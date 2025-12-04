@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Company } from '../../../../domain/entities/company.entity';
 import { ICompanyRepository } from '../../../../application/ports/outbound/company.repository';
-import { CompanyStatus, CompanyType } from 'src/util/enum';
+import { CompanyType } from 'src/util/enum';
 import {
   CompanyFilters,
   PaginationParams,
@@ -25,7 +25,6 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         'Tech Solutions Inc',
         '30-12345678-9',
         CompanyType.PYME,
-        CompanyStatus.ACTIVE,
         'email@gmail.com',
         new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000),
       ),
@@ -34,7 +33,6 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         'Global Corp',
         '30-98765432-1',
         CompanyType.CORPORATE,
-        CompanyStatus.ACTIVE,
         'email@gmail.com',
         new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000),
       ),
@@ -43,7 +41,6 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         'Old Company Ltd',
         '30-55555555-5',
         CompanyType.PYME,
-        CompanyStatus.INACTIVE,
         'email@gmail.com',
         twoMonthsAgo,
       ),
@@ -71,10 +68,6 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
 
     if (filters.type) {
       filtered = filtered.filter((c) => c.type === filters.type);
-    }
-
-    if (filters.status) {
-      filtered = filtered.filter((c) => c.status === filters.status);
     }
 
     if (filters.search) {
