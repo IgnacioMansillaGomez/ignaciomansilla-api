@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { Company } from '../../domain/entities/company.entity';
 import { TaxId } from '../../domain/value-objects/tax-id.vo';
-import { CompanyStats } from '../../domain/value-objects/company-stats.vo';
 import type { ICompanyRepository } from '../ports/outbound/company.repository';
 import type { ITransferRepository } from '../ports/outbound/transfer.repository';
 import {
@@ -27,10 +26,8 @@ export class CompanyService implements ICompanyUseCases {
   ) {}
 
   async registerCompany(command: CreateCompanyCommand): Promise<Company> {
-    // Validate tax ID format using value object
     const taxId = new TaxId(command.taxId);
 
-    // Check for duplicates
     const existingByTaxId = await this.companyRepository.findByTaxId(
       taxId.getValue(),
     );
@@ -46,6 +43,7 @@ export class CompanyService implements ICompanyUseCases {
       taxId.getValue(),
       command.type as CompanyType,
       CompanyStatus.ACTIVE,
+      command.email || null,
       new Date(),
     );
 

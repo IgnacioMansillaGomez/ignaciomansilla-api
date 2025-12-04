@@ -1,5 +1,4 @@
 import { Company } from '../../../domain/entities/company.entity';
-import { CompanyStats } from '../../../domain/value-objects/company-stats.vo';
 
 export interface CreateCompanyCommand {
   name: string;
@@ -13,6 +12,7 @@ export interface CompanyFilters {
   status?: string;
   industry?: string;
   search?: string;
+  email?: string;
 }
 
 export interface PaginationParams {

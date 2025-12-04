@@ -26,6 +26,7 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         '30-12345678-9',
         CompanyType.PYME,
         CompanyStatus.ACTIVE,
+        'email@gmail.com',
         new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000),
       ),
       new Company(
@@ -34,6 +35,7 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         '30-98765432-1',
         CompanyType.CORPORATE,
         CompanyStatus.ACTIVE,
+        'email@gmail.com',
         new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000),
       ),
       new Company(
@@ -42,6 +44,7 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
         '30-55555555-5',
         CompanyType.PYME,
         CompanyStatus.INACTIVE,
+        'email@gmail.com',
         twoMonthsAgo,
       ),
     ];
@@ -82,6 +85,13 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
       );
     }
 
+    if (filters.email) {
+      const emailSearch = filters.email.toLowerCase();
+      filtered = filtered.filter(
+        (c) => c.email && c.email.toLowerCase().includes(emailSearch),
+      );
+    }
+
     const total = filtered.length;
     const startIndex = (pagination.page - 1) * pagination.limit;
     const endIndex = startIndex + pagination.limit;
@@ -94,25 +104,5 @@ export class InMemoryCompanyRepository implements ICompanyRepository {
 
   async findRegisteredInLastMonth(): Promise<Company[]> {
     return this.companies.filter((c) => c.isRegisteredInLastMonth());
-  }
-
-  async update(company: Company): Promise<Company> {
-    const index = this.companies.findIndex((c) => c.id === company.id);
-    if (index !== -1) {
-      this.companies[index] = company;
-    }
-    return company;
-  }
-
-  async countByType(type: string): Promise<number> {
-    return this.companies.filter((c) => c.type === type).length;
-  }
-
-  async countByStatus(status: string): Promise<number> {
-    return this.companies.filter((c) => c.status === status).length;
-  }
-
-  async countTotal(): Promise<number> {
-    return this.companies.length;
   }
 }

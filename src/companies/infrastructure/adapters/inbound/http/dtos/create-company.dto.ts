@@ -18,8 +18,8 @@ export class CreateCompanyDto {
   @IsString()
   taxId: string;
 
-  @ApiProperty({ enum: ['SME', 'CORPORATE'] })
-  @IsEnum(['SME', 'CORPORATE'])
+  @ApiProperty({ enum: ['PYME', 'CORPORATE'] })
+  @IsEnum(['PYME', 'CORPORATE'])
   type: string;
 
   @ApiProperty({ example: 'contact@company.com' })

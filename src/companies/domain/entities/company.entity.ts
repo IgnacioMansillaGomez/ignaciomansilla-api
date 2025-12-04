@@ -7,6 +7,7 @@ export class Company {
     public readonly taxId: string,
     public readonly type: CompanyType,
     public status: CompanyStatus,
+    public readonly email: string | null,
     public readonly registrationDate: Date,
     public readonly createdAt: Date = new Date(),
     public updatedAt: Date = new Date(),
