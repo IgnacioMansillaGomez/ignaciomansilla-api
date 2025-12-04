@@ -1,4 +1,4 @@
-import { CompanyType } from 'src/util/enum';
+import { CompanyType } from '../../../util/enum';
 import { Company } from './company.entity';
 
 describe('Company Entity', () => {

@@ -5,14 +5,13 @@ import { Company } from '../../domain/entities/company.entity';
 import { Transfer } from '../../domain/entities/transfer.entity';
 import { ICompanyRepository } from '../ports/outbound/company.repository';
 import { ITransferRepository } from '../ports/outbound/transfer.repository';
-import { CompanyType, TransferStatus } from 'src/util/enum';
+import { CompanyType, TransferStatus } from '../../../util/enum';
 
 describe('CompanyService', () => {
   let service: CompanyService;
   let companyRepository: jest.Mocked<ICompanyRepository>;
   let transferRepository: jest.Mocked<ITransferRepository>;
 
-  // Mock repositories
   const mockCompanyRepository = {
     save: jest.fn(),
     findById: jest.fn(),
