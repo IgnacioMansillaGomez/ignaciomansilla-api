@@ -13,11 +13,6 @@ export class Company {
     public updatedAt: Date = new Date(),
   ) {}
 
-  updateStatus(newStatus: CompanyStatus): void {
-    this.status = newStatus;
-    this.updatedAt = new Date();
-  }
-
   isRegisteredInLastMonth(): boolean {
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
