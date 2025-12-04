@@ -1,0 +1,118 @@
+import { Injectable } from '@nestjs/common';
+import { Company } from '../../../../domain/entities/company.entity';
+import { ICompanyRepository } from '../../../../application/ports/outbound/company.repository';
+import { CompanyStatus, CompanyType } from 'src/util/enum';
+import {
+  CompanyFilters,
+  PaginationParams,
+} from 'src/companies/application/ports/inbound/company.uses-cases';
+
+@Injectable()
+export class InMemoryCompanyRepository implements ICompanyRepository {
+  private companies: Company[] = [];
+
+  constructor() {
+    this.seedData();
+  }
+
+  private seedData() {
+    const now = new Date();
+    const twoMonthsAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
+
+    this.companies = [
+      new Company(
+        '1',
+        'Tech Solutions Inc',
+        '30-12345678-9',
+        CompanyType.PYME,
+        CompanyStatus.ACTIVE,
+        new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000),
+      ),
+      new Company(
+        '2',
+        'Global Corp',
+        '30-98765432-1',
+        CompanyType.CORPORATE,
+        CompanyStatus.ACTIVE,
+        new Date(now.getTime() - 20 * 24 * 60 * 60 * 1000),
+      ),
+      new Company(
+        '3',
+        'Old Company Ltd',
+        '30-55555555-5',
+        CompanyType.PYME,
+        CompanyStatus.INACTIVE,
+        twoMonthsAgo,
+      ),
+    ];
+  }
+
+  async save(company: Company): Promise<Company> {
+    this.companies.push(company);
+    return company;
+  }
+
+  async findById(id: string): Promise<Company | null> {
+    return this.companies.find((c) => c.id === id) || null;
+  }
+
+  async findByTaxId(taxId: string): Promise<Company | null> {
+    return this.companies.find((c) => c.taxId === taxId) || null;
+  }
+
+  async findAll(
+    filters: CompanyFilters,
+    pagination: PaginationParams,
+  ): Promise<{ data: Company[]; total: number }> {
+    let filtered = [...this.companies];
+
+    if (filters.type) {
+      filtered = filtered.filter((c) => c.type === filters.type);
+    }
+
+    if (filters.status) {
+      filtered = filtered.filter((c) => c.status === filters.status);
+    }
+
+    if (filters.search) {
+      const search = filters.search.toLowerCase();
+      filtered = filtered.filter(
+        (c) =>
+          c.name.toLowerCase().includes(search) || c.taxId.includes(search),
+      );
+    }
+
+    const total = filtered.length;
+    const startIndex = (pagination.page - 1) * pagination.limit;
+    const endIndex = startIndex + pagination.limit;
+
+    return {
+      data: filtered.slice(startIndex, endIndex),
+      total,
+    };
+  }
+
+  async findRegisteredInLastMonth(): Promise<Company[]> {
+    return this.companies.filter((c) => c.isRegisteredInLastMonth());
+  }
+
+  async update(company: Company): Promise<Company> {
+    const index = this.companies.findIndex((c) => c.id === company.id);
+    if (index !== -1) {
+      this.companies[index] = company;
+    }
+    return company;
+  }
+
+  async countByType(type: string): Promise<number> {
+    return this.companies.filter((c) => c.type === type).length;
+  }
+
+  async countByStatus(status: string): Promise<number> {
+    return this.companies.filter((c) => c.status === status).length;
+  }
+
+  async countTotal(): Promise<number> {
+    return this.companies.length;
+  }
+}
