@@ -172,7 +172,6 @@ export class CompanyService {
 // Easy to swap implementations
 {
   provide: 'ICompanyRepository',
-  useClass: JsonCompanyRepository,     // Current: JSON files
   // useClass: PostgresRepository,     // Future: PostgreSQL
   // useClass: MongoRepository,        // Future: MongoDB
 }
