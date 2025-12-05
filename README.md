@@ -42,8 +42,8 @@ This project implements **Hexagonal Architecture (Ports and Adapters)**, which p
 │    │   │       └── dtos/                               │
 │    │   └── outbound/                                   │
 │    │       └── persistence/                            │
-│    │           ├── json-company.repository.ts          │
-│    │           └── json-transfer.repository.ts         │
+│    │           ├── in-memory-company.repository.ts     │
+│    │           └── in-memory-transfer.repository.ts    │
 └───────────────────┬─────────────────────────────────────┘
                     │
                     ▼
@@ -123,8 +123,8 @@ src/
 │   │       │       └── dtos/            # Request/response DTOs
 │   │       └── outbound/
 │   │           └── persistence/
-│   │               ├── json-company.repository.ts    # File storage
-│   │               └── json-transfer.repository.ts
+│   │           ├── in-memory-company.repository.ts     # File storage
+│   │           └── in-memory-transfer.repository.ts
 │   │
 │   └── companies.module.ts              # Dependency injection
 │
@@ -397,7 +397,7 @@ npm >= 9.x
 ```bash
 # Clone repository
 git clone <repository-url>
-cd company-registration-system
+cd ignaciomansilla-api
 
 # Install dependencies
 npm install
