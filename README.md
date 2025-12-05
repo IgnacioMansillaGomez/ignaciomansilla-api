@@ -232,38 +232,7 @@ if (company.isRegisteredInLastMonth()) {
 
 ---
 
-### 4. **Why JSON Files Instead of Database?**
-
-**Decision:** Use JSON files for persistence instead of PostgreSQL/MongoDB.
-
-**Reasoning:**
-
-- ✅ **No setup required** - No database installation or configuration
-- ✅ **Simple deployment** - Just copy files
-- ✅ **Version control friendly** - Can track data changes in git (optional)
-- ✅ **Easy testing** - No need for test databases
-- ✅ **Demonstrates flexibility** - Shows ports and adapters pattern working
-
-**Trade-offs:**
-
-- ❌ Not suitable for production at scale
-- ❌ No ACID transactions
-- ❌ Limited concurrent writes
-
-**Migration path:**
-
-```typescript
-// When ready for production, just change this:
-{
-  provide: 'ICompanyRepository',
-  useClass: JsonCompanyRepository,     // Development
-  // useClass: PostgresRepository,     // Production
-}
-```
-
----
-
-### 5. **Why Dependency Injection with Tokens?**
+### 4. **Why Dependency Injection with Tokens?**
 
 **Decision:** Use string tokens (`'ICompanyRepository'`) instead of class-based DI.
 
@@ -287,7 +256,7 @@ private repo: CompanyRepository
 
 ---
 
-### 6. **Why Readonly Fields in Domain Entities?**
+### 5. **Why Readonly Fields in Domain Entities?**
 
 **Decision:** Make most entity fields `readonly`.
 
@@ -313,7 +282,7 @@ export class Company {
 
 ---
 
-### 7. **Why Separate DTOs and Domain Entities?**
+### 6. **Why Separate DTOs and Domain Entities?**
 
 **Problem:** Using domain entities as HTTP request/response objects creates coupling.
 
@@ -351,7 +320,7 @@ export class Company {
 
 ---
 
-### 8. **Why Optional Email Field?**
+### 7. **Why Optional Email Field?**
 
 **Decision:** Email is optional (`string | null`).
 
@@ -363,7 +332,7 @@ export class Company {
 
 ---
 
-### 9. **Why AWS Lambda for Registration?**
+### 8. **Why AWS Lambda for Registration?**
 
 **Decision:** Provide optional Lambda function for company registration.
 
