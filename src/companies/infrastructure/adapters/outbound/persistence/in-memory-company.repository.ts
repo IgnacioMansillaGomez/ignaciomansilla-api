@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Company } from '../../../../domain/entities/company.entity';
 import { ICompanyRepository } from '../../../../application/ports/outbound/company.repository';
-import { CompanyType } from 'src/util/enum';
+import { CompanyType } from '../../../../../util/enum';
 import {
   CompanyFilters,
   PaginationParams,

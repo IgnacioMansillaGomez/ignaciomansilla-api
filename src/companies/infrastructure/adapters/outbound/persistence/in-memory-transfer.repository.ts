@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Transfer } from '../../../../domain/entities/transfer.entity';
 import { ITransferRepository } from '../../../../application/ports/outbound/transfer.repository';
-import { TransferStatus } from 'src/util/enum';
+import { TransferStatus } from '../../../../../util/enum';
 
 @Injectable()
 export class InMemoryTransferRepository implements ITransferRepository {
