@@ -1,4 +1,4 @@
-import { TransferStatus } from 'src/util/enum';
+import { TransferStatus } from '../../../util/enum';
 
 export class Transfer {
   constructor(

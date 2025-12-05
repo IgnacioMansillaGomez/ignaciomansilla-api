@@ -60,7 +60,7 @@ describe('CompanyService', () => {
     const validCommand = {
       name: 'Test Company',
       taxId: '30-12345678-9',
-      type: 'SME',
+      type: 'PYME',
       email: 'test@company.com',
       phone: '+1-555-1234567',
       address: '123 Test St',
