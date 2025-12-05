@@ -1,10 +1,11 @@
 import { CompanyType } from 'src/util/enum';
+import { TaxId } from '../value-objects/tax-id.vo';
 
 export class Company {
   constructor(
     public readonly id: string,
     public readonly name: string,
-    public readonly taxId: string,
+    public readonly taxId: TaxId,
     public readonly type: CompanyType,
     public readonly email: string | null,
     public readonly registrationDate: Date,
